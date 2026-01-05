@@ -1,0 +1,110 @@
+/* ===== Dashboard Page ===== */
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.week-header h2 {
+  color: var(--color-text-primary);
+}
+
+.week-header-nav {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.week-header-nav button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.week-header-nav button:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-text-secondary);
+}
+
+.day-card {
+  transition: all var(--transition-base);
+}
+
+.day-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-text-secondary);
+}
+
+.day-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.day-name {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.task-item {
+  position: relative;
+  padding-left: var(--spacing-lg);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.task-item.completed::before {
+  background: var(--color-success);
+}
+
+.task-item-content {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.task-item-goal {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.empty-state p {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}

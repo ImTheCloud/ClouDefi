@@ -1,0 +1,15 @@
+/* ===== Main CSS Entry Point ===== */
+/* Import all stylesheets in order */
+
+/* Global styles and tokens */
+@import './index.css';
+
+/* Component styles */
+@import './components/Layout.css';
+@import './components/UI.css';
+@import './components/ChallengeForm.css';
+
+/* Page styles */
+@import './pages/AuthPage.css';
+@import './pages/DashboardPage.css';
+@import './pages/ChallengesPage.css';

@@ -1,0 +1,25 @@
+/* ===== Auth Page ===== */
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.auth-page .eyebrow {
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.15em;
+}
+
+.auth-page h1 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.auth-page > p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-sm);
+}
