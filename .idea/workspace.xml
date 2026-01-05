@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daffb686-5631-486a-b143-084660edc6b2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/eslint.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/public/vite.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/src/assets/react.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/src/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/my-app/vite.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ChallengesPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ChallengesPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DashboardPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1767630642986</updated>
-      <workItem from="1767630644025" duration="7628000" />
+      <workItem from="1767630644025" duration="9969000" />
     </task>
     <servers />
   </component>

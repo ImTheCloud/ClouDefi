@@ -11,7 +11,7 @@ import { buildWeek, formatDate, weekDays } from '../lib/week'
 import type { DayBucket, WeekTask } from '../lib/types'
 
 const formatHumanDate = (date: Date) =>
-  date.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' })
+    date.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' })
 
 const DashboardPage = ({ session }: { session: Session }) => {
   const [loading, setLoading] = useState(true)
@@ -62,10 +62,6 @@ const DashboardPage = ({ session }: { session: Session }) => {
 
   const handleSave = async () => {
     if (!selectedTask) return
-    if (new Date(selectedTask.date).getTime() > new Date().setHours(0, 0, 0, 0)) {
-      setError('Impossible de valider une date future.')
-      return
-    }
 
     const payload: any = {
       user_id: session.user.id,
@@ -106,162 +102,137 @@ const DashboardPage = ({ session }: { session: Session }) => {
     }
   }
 
-  const pendingCount = week.reduce(
-    (acc, day) => acc + day.tasks.filter((t) => !t.checkin && t.isPast).length,
-    0,
-  )
-  const doneCount = week.reduce((acc, day) => acc + day.tasks.filter((t) => t.checkin).length, 0)
+  const isWeekEmpty = week.every((day) => day.tasks.length === 0)
 
   return (
-    <div className="page">
-      <div className="page-head">
-        <div>
-          <p className="eyebrow">
-            Semaine du {formatHumanDate(weekRange.start)} au {formatHumanDate(weekRange.end)}
-          </p>
-          <h2>Ce qui compte maintenant</h2>
-        </div>
-        <div className="metrics">
-          <Card title="À faire cette semaine" subdued>
-            <p className="kpi">{pendingCount}</p>
-          </Card>
-          <Card title="Déjà validé" subdued>
-            <p className="kpi green">{doneCount}</p>
-          </Card>
-        </div>
-      </div>
-      {error && <p className="error">{error}</p>}
-      {loading ? (
-        <div className="loader-row">
-          <div className="loader" />
-          <p>Synchronisation...</p>
-        </div>
-      ) : (
-        <div className="week-grid">
-          {week.map((day) => (
-            <Card
-              key={day.date.toISOString()}
-              title={formatHumanDate(day.date)}
-              actions={
-                <Badge
-                  tone={formatDate(new Date()) === formatDate(day.date) ? 'accent' : 'neutral'}
-                >
-                  {day.tasks.length} tâche(s)
-                </Badge>
-              }
-              subdued
-            >
-              {day.tasks.length === 0 && (
-                <p className="muted">Rien de prévu ce jour-là. Respire.</p>
-              )}
-              <div className="task-stack">
-                {day.tasks.map((task) => {
-                  const isFuture =
-                    new Date(task.date).getTime() > new Date().setHours(0, 0, 0, 0)
-                  return (
-                    <div
-                      key={task.challenge.id}
-                      className={`task ${task.checkin ? 'task-done' : ''} ${
-                        isFuture ? 'task-future' : ''
-                      }`}
-                    >
-                      <div>
-                        <div className="task-top">
-                          <p className="task-title">{task.challenge.title}</p>
-                          <Badge tone={task.challenge.type === 'binary' ? 'neutral' : 'accent'}>
-                            {task.challenge.type}
-                          </Badge>
-                        </div>
-                        <p className="muted">
-                          {task.challenge.type === 'binary'
-                            ? 'Action unique'
-                            : `${task.challenge.unit ?? ''} objectif ${
-                                task.challenge.target_value ?? '-'
-                              }`}
-                        </p>
-                        {task.checkin && (
-                          <p className="muted small">
-                            Validé :{' '}
-                            {task.challenge.type === 'binary'
-                              ? 'Fait'
-                              : `${task.checkin.value ?? ''} ${task.challenge.unit ?? ''}`}{' '}
-                            {task.checkin.note && <> · {task.checkin.note}</>}
-                          </p>
-                        )}
-                      </div>
-                      <div className="task-actions">
-                        {task.checkin ? (
-                          <Button variant="ghost" onClick={() => handleUndo(task.checkin?.id)}>
-                            Undo
-                          </Button>
-                        ) : (
-                          <Button
-                            disabled={isFuture}
-                            onClick={() => openValidation(task)}
-                            variant={isFuture ? 'secondary' : 'primary'}
-                          >
-                            Valider
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
+      <div className="page">
+        {/* HEADER ENTIEREMENT SUPPRIMÉ */}
 
-      <Modal
-        open={Boolean(selectedTask)}
-        title={
-          selectedTask
-            ? `Valider ${selectedTask.challenge.title} (${selectedTask.dateKey})`
-            : ''
-        }
-        onClose={closeModal}
-        footer={
-          <div className="modal-actions">
-            <Button variant="ghost" onClick={closeModal}>
-              Annuler
-            </Button>
-            <Button onClick={handleSave}>Enregistrer</Button>
-          </div>
-        }
-      >
-        {selectedTask && (
-          <div className="stack">
-            {selectedTask.challenge.type === 'binary' ? (
-              <p className="muted">Une validation simple pour ce jour.</p>
-            ) : (
-              <Field
-                label={
-                  selectedTask.challenge.type === 'weight' ? 'Poids mesuré' : 'Valeur réalisée'
-                }
-                hint={selectedTask.challenge.unit ?? ''}
-              >
-                <Input
-                  type="number"
-                  step="0.1"
-                  value={valueInput}
-                  onChange={(e) => setValueInput(e.target.value)}
-                  placeholder="0"
-                />
-              </Field>
-            )}
-            <Field label="Note (optionnel)">
-              <Textarea
-                rows={3}
-                placeholder="Comment s'est passée la session ?"
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-              />
-            </Field>
-          </div>
+        {error && <p className="error">{error}</p>}
+        {loading ? (
+            <div className="loader-row">
+              <div className="loader" />
+              <p>Synchronisation...</p>
+            </div>
+        ) : (
+            <div className="week-grid">
+              {isWeekEmpty && <p className="muted">Aucun challenge planifié.</p>}
+
+              {week
+                  .filter((day) => day.tasks.length > 0)
+                  .map((day) => (
+                      <Card
+                          key={day.date.toISOString()}
+                          title={formatHumanDate(day.date)}
+                          actions={
+                            <Badge
+                                tone={formatDate(new Date()) === formatDate(day.date) ? 'accent' : 'neutral'}
+                            >
+                              {day.tasks.length} tâche(s)
+                            </Badge>
+                          }
+                          subdued
+                      >
+                        <div className="task-stack">
+                          {day.tasks.map((task) => {
+                            return (
+                                <div
+                                    key={task.challenge.id}
+                                    className={`task ${task.checkin ? 'task-done' : ''}`}
+                                >
+                                  <div>
+                                    <div className="task-top">
+                                      <p className="task-title">{task.challenge.title}</p>
+                                    </div>
+                                    <p className="muted">
+                                      {task.challenge.type === 'binary'
+                                          ? 'Action unique'
+                                          : `${task.challenge.unit ?? ''} objectif ${
+                                              task.challenge.target_value ?? '-'
+                                          }`}
+                                    </p>
+                                    {task.checkin && (
+                                        <p className="muted small">
+                                          Validé :{' '}
+                                          {task.challenge.type === 'binary'
+                                              ? 'Fait'
+                                              : `${task.checkin.value ?? ''} ${task.challenge.unit ?? ''}`}{' '}
+                                          {task.checkin.note && <> · {task.checkin.note}</>}
+                                        </p>
+                                    )}
+                                  </div>
+                                  <div className="task-actions">
+                                    {task.checkin ? (
+                                        <Button variant="ghost" onClick={() => handleUndo(task.checkin?.id)}>
+                                          Undo
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={() => openValidation(task)}
+                                            variant="primary"
+                                        >
+                                          Valider
+                                        </Button>
+                                    )}
+                                  </div>
+                                </div>
+                            )
+                          })}
+                        </div>
+                      </Card>
+                  ))}
+            </div>
         )}
-      </Modal>
-    </div>
+
+        <Modal
+            open={Boolean(selectedTask)}
+            title={
+              selectedTask
+                  ? `Valider ${selectedTask.challenge.title} (${selectedTask.dateKey})`
+                  : ''
+            }
+            onClose={closeModal}
+            footer={
+              <div className="modal-actions">
+                <Button variant="ghost" onClick={closeModal}>
+                  Annuler
+                </Button>
+                <Button onClick={handleSave}>Enregistrer</Button>
+              </div>
+            }
+        >
+          {selectedTask && (
+              <div className="stack">
+                {selectedTask.challenge.type === 'binary' ? (
+                    <p className="muted">Validation simple.</p>
+                ) : (
+                    <Field
+                        label={
+                          selectedTask.challenge.type === 'weight' ? 'Poids mesuré' : 'Valeur réalisée'
+                        }
+                        hint={selectedTask.challenge.unit ?? ''}
+                    >
+                      <Input
+                          type="number"
+                          step="0.1"
+                          value={valueInput}
+                          onChange={(e) => setValueInput(e.target.value)}
+                          placeholder="0"
+                      />
+                    </Field>
+                )}
+                <Field label="Note">
+                  <Textarea
+                      rows={3}
+                      placeholder="Commentaire..."
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                  />
+                </Field>
+              </div>
+          )}
+        </Modal>
+      </div>
   )
 }
 
