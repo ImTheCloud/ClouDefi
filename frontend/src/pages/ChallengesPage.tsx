@@ -13,8 +13,8 @@ import type { ChallengeFormValues } from '../lib/api'
 import type { ChallengeSchedule, ChallengeWithSchedule } from '../lib/types'
 
 const asFormValues = (
-  challenge: ChallengeWithSchedule,
-  schedule?: ChallengeSchedule | null,
+    challenge: ChallengeWithSchedule,
+    schedule?: ChallengeSchedule | null,
 ): ChallengeFormValues => ({
   title: challenge.title,
   description: challenge.description ?? '',
@@ -74,101 +74,98 @@ const ChallengesPage = ({ session }: { session: Session }) => {
   }
 
   return (
-    <div className="page">
-      <div className="page-head">
-        <div>
-          <p className="eyebrow">Gestion des challenges</p>
-          <h2>Crée, ajuste, supprime</h2>
+      <div className="page">
+        <div className="page-head">
+          {/* TITRES SUPPRIMÉS ICI */}
+          <Button
+              onClick={() => {
+                setMode('create')
+                setEditing(null)
+                setModalOpen(true)
+              }}
+          >
+            Nouveau challenge
+          </Button>
         </div>
-        <Button
-          onClick={() => {
-            setMode('create')
-            setEditing(null)
-            setModalOpen(true)
-          }}
-        >
-          Nouveau challenge
-        </Button>
-      </div>
 
-      {error && <p className="error">{error}</p>}
-      {loading ? (
-        <div className="loader-row">
-          <div className="loader" />
-          <p>Chargement...</p>
-        </div>
-      ) : (
-        <div className="list">
-          {challenges.map((challenge) => {
-            const schedule = challenge.challenge_schedules[0]
-            return (
-              <Card
-                key={challenge.id}
-                title={challenge.title}
-                actions={
-                  <div className="chip-row">
-                    <Badge tone={challenge.is_active ? 'accent' : 'neutral'}>
-                      {challenge.is_active ? 'Actif' : 'Inactif'}
-                    </Badge>
-                    <Badge tone="neutral">{challenge.type}</Badge>
-                    {schedule && <Badge tone="neutral">{schedule.frequency}</Badge>}
-                  </div>
-                }
-              >
-                <p className="muted">{challenge.description || 'Pas de description'}</p>
-                <div className="meta-row">
+        {error && <p className="error">{error}</p>}
+        {loading ? (
+            <div className="loader-row">
+              <div className="loader" />
+              <p>Chargement...</p>
+            </div>
+        ) : (
+            <div className="list">
+              {challenges.map((challenge) => {
+                const schedule = challenge.challenge_schedules[0]
+                return (
+                    <Card
+                        key={challenge.id}
+                        title={challenge.title}
+                        actions={
+                          <div className="chip-row">
+                            <Badge tone={challenge.is_active ? 'accent' : 'neutral'}>
+                              {challenge.is_active ? 'Actif' : 'Inactif'}
+                            </Badge>
+                            <Badge tone="neutral">{challenge.type}</Badge>
+                            {schedule && <Badge tone="neutral">{schedule.frequency}</Badge>}
+                          </div>
+                        }
+                    >
+                      <p className="muted">{challenge.description || 'Pas de description'}</p>
+                      <div className="meta-row">
                   <span>
                     Objectif:{' '}
                     {challenge.type === 'binary'
-                      ? 'Faire / ne pas faire'
-                      : `${challenge.target_value ?? ''} ${challenge.unit ?? ''}`}
+                        ? 'Faire / ne pas faire'
+                        : `${challenge.target_value ?? ''} ${challenge.unit ?? ''}`}
                   </span>
-                  <span>
+                        <span>
                     Période: {challenge.start_date} → {challenge.end_date}
                   </span>
-                </div>
-                <div className="actions">
-                  <Button variant="ghost" onClick={() => navigate(`/challenges/${challenge.id}`)}>
-                    Détails
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      setEditing(challenge)
-                      setMode('edit')
-                      setModalOpen(true)
-                    }}
-                  >
-                    Modifier
-                  </Button>
-                  <Button variant="danger" onClick={() => handleDelete(challenge.id)}>
-                    Supprimer
-                  </Button>
-                </div>
-              </Card>
-            )
-          })}
-          {challenges.length === 0 && <p className="muted">Aucun challenge pour l'instant.</p>}
-        </div>
-      )}
+                      </div>
+                      <div className="actions">
+                        <Button variant="ghost" onClick={() => navigate(`/challenges/${challenge.id}`)}>
+                          Détails
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            onClick={() => {
+                              setEditing(challenge)
+                              setMode('edit')
+                              setModalOpen(true)
+                            }}
+                        >
+                          Modifier
+                        </Button>
+                        <Button variant="danger" onClick={() => handleDelete(challenge.id)}>
+                          Supprimer
+                        </Button>
+                      </div>
+                    </Card>
+                )
+              })}
+              {challenges.length === 0 && <p className="muted">Aucun challenge pour l'instant.</p>}
+            </div>
+        )}
 
-      <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={mode === 'create' ? 'Nouveau challenge' : 'Modifier le challenge'}
-      >
-        <ChallengeForm
-          initial={editing ? asFormValues(editing, editing.challenge_schedules[0]) : undefined}
-          schedule={editing?.challenge_schedules[0]}
-          onSubmit={handleSubmit}
-          submitLabel={mode === 'create' ? 'Créer' : 'Mettre à jour'}
-          onCancel={() => {
-            setModalOpen(false)
-            setEditing(null)
-          }}
-        />
-      </Modal>
-    </div>
+        <Modal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title={mode === 'create' ? 'Nouveau challenge' : 'Modifier le challenge'}
+        >
+          <ChallengeForm
+              initial={editing ? asFormValues(editing, editing.challenge_schedules[0]) : undefined}
+              schedule={editing?.challenge_schedules[0]}
+              onSubmit={handleSubmit}
+              submitLabel={mode === 'create' ? 'Créer' : 'Mettre à jour'}
+              onCancel={() => {
+                setModalOpen(false)
+                setEditing(null)
+              }}
+          />
+        </Modal>
+      </div>
   )
 }
 
