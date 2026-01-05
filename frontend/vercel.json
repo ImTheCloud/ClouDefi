@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "envPrefix": "VITE_",
+  "routes": [
+    {
+      "src": "^/(?!assets|public).*",
+      "dest": "/index.html"
+    }
+  ]
+}
