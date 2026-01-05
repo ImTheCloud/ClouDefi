@@ -19,17 +19,6 @@ Supabase (PostgreSQL + Auth + RLS)
 CSS custom (no Tailwind)  
 Vercel (deployment)
 
-📱 Getting Started
-```bash
-cd frontend
-cp .env.example .env  # Add Supabase keys
-npm install
-npm run dev
-```
-
-📚 Documentation
-[Design System](./frontend/DESIGN_SYSTEM.md) | [Frontend Redesign](./frontend/FRONTEND_REDESIGN.md) | [Maintenance](./frontend/MAINTENANCE_GUIDE.md)
-
 📄 License
 Private project — All rights reserved.
 
