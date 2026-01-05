@@ -1,9 +1,9 @@
--- Enable RLS on all tables
+-- Enable RLS on all tables (for existing database)
 alter table public.challenges enable row level security;
 alter table public.challenge_schedules enable row level security;
 alter table public.checkins enable row level security;
 
--- CHALLENGES: Users can only see their own challenges
+-- CHALLENGES: Users can only see/modify their own challenges
 create policy "challenges_select_own" on public.challenges
   for select
   using (auth.uid() = user_id);
