@@ -19,6 +19,4 @@ Supabase (PostgreSQL + Auth + RLS)
 CSS custom (no Tailwind)  
 Vercel (deployment)
 
-📄 License
-Private project — All rights reserved.
 
